@@ -1,19 +1,24 @@
 public class MyEventSub extends TwitchEventSub{
 
     public MyEventSub() {
-        super(50);
+        super(50); // <--- This is optional. If removed then default is 10, equivalent to super(10);
     }
 
     @Override
     public void onWelcomeMessage() {
-        // System.out.println("Connected to Twitch WebSocket");
+        System.out.println("Welcome message received");
 
-        // Example data from twitch:
-        // subscribe("channel.channel_points_custom_reward_redemption.add", "0123456", "2gbdx6oar67tqtcmt49t3wpcgycthx", "wbmytr93xzw8zbg0p1izqyzzc5mbiz");
+        String event = "channel.channel_points_custom_reward_redemption.add";
+        String version = "1";
+        Condition condition = newCondition().add("broadcaster_user_id", "0123456");
+        String access_token = "<Your access token>";
+        String cliend_id = "<Your client id>";
+
+        subscribe(event, version, condition, access_token, cliend_id);
     }
 
     @Override
     public void onNotificationMessage(String message) {
-        // System.out.println("Subscription Notification");
+        System.out.println("Entire message from Twitch: " + message);
     }
 }
